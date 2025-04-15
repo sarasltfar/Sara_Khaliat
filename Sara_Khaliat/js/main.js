@@ -57,3 +57,29 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    fetch('data/cards.json')
+      .then(response => response.json())
+      .then(cards => {
+        const container = document.getElementById("cardContainer");
+  
+        cards.forEach(card => {
+          const cardHTML = `
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100">
+                <img src="${card.image}" class="card-img-top" alt="${card.title}">
+                <div class="card-body">
+                  <h5 class="card-title">${card.title}</h5>
+                  <p class="card-text">${card.description}</p>
+                  <a href="${card.link}" class="btn btn-primary">Learn More</a>
+                </div>
+              </div>
+            </div>
+          `;
+          container.insertAdjacentHTML("beforeend", cardHTML);
+        });
+      })
+      .catch(error => console.error("Error loading JSON:", error));
+});
+  
